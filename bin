@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+        disk_status=$(diskutil list | grep "Name of Device")
+
+        if [ -n "$disk_status" ]; then 
+            echo "Disk Mounted"
+            backup_status=$(tmutil status | grep "Running = 0")
+            if [ -n "$backup_status" ]; then 
+                echo "Backup NOT Running"
+                diskutil eject /dev/disk #Add the disk name here
+            else 
+            echo "Backup Running"
+            fi
+        else
+        echo "Disk NOT Mounted"
+        fi 
